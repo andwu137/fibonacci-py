@@ -13,7 +13,19 @@ type F = Callable[
             [Merge3],
             Callable[
                 [Merge3],
-                Callable[[F], Callable[[int], Callable[[int], Callable[[int], int]]]],
+                Callable[
+                    [F],
+                    Callable[
+                        [int],
+                        Callable[
+                            [int],
+                            Callable[
+                                [int],
+                                int
+                            ]
+                        ]
+                    ]
+                ],
             ],
         ],
     ],
@@ -101,7 +113,13 @@ id: Callable[[A], A] = lambda x: x
 # Returns:
 #     Callable[[Callable[[A], B]], Callable[[A], C]]:
 #               A function that applies `f` after `g`.
-dot: Callable[[Callable[[B], C]], Callable[[Callable[[A], B]], Callable[[A], C]]] = (
+dot: Callable[
+        [Callable[[B], C]],
+        Callable[
+            [Callable[[A], B]],
+            Callable[[A], C]
+        ]
+    ] = (
     lambda f: lambda g: lambda x: f(g(x))
 )
 
