@@ -3,8 +3,9 @@ from typing import Callable, Any
 type A = Any
 type B = Any
 type C = Any
+type D = Any
 type Predicate3 = Callable[[A], Callable[[B], Callable[[C], bool]]]
-type Merge3 = Callable[[A], Callable[[B], Callable[[C], int]]]
+type Merge3 = Callable[[A], Callable[[B], Callable[[C], D]]]
 type F = Callable[
     [Predicate3],
     Callable[
@@ -16,12 +17,12 @@ type F = Callable[
                 Callable[
                     [F],
                     Callable[
-                        [int],
+                        [A],
                         Callable[
-                            [int],
+                            [B],
                             Callable[
-                                [int],
-                                int
+                                [C],
+                                A
                             ]
                         ]
                     ]
