@@ -28,33 +28,39 @@ type F = Callable[
 #
 # Returns:
 #     F: A fix-point combinator function `f`.
-f: F = lambda predicate: (
-    lambda x_prime: (
-        lambda y_prime: (
-            lambda z_prime: (
-                lambda fix_point_recurse: (
-                    lambda x: (
-                        lambda y: (
-                            lambda z: (
-                                (
-                                    fix_point_recurse(predicate)(x_prime)(y_prime)(
-                                        z_prime
-                                    )(fix_point_recurse)(x_prime(x)(y)(z))(
-                                        y_prime(x)(y)(z)
-                                    )(
-                                        z_prime(x)(y)(z)
-                                    )
-                                )
-                                if not (predicate(x)(y)(z))
-                                else x
-                            )
-                        )
-                    )
-                )
-            )
-        )
-    )
-)
+f: F = (
+    lambda predicate:
+        (lambda x_prime:
+            (lambda y_prime:
+                (lambda z_prime:
+                    (lambda fix_point_recurse:
+                        (lambda x:
+                            (lambda y:
+                                (lambda z: (
+                                    (fix_point_recurse
+                                        (predicate)
+                                        (x_prime)
+                                        (y_prime)
+                                        (z_prime)
+                                        (fix_point_recurse)
+                                        (x_prime
+                                         (x)
+                                         (y)
+                                         (z))
+                                        (y_prime
+                                         (x)
+                                         (y)
+                                         (z))
+                                        (z_prime
+                                         (x)
+                                         (y)
+                                         (z)))
+                                    if not (predicate
+                                            (x)
+                                            (y)
+                                            (z))
+                                    else x
+                                )))))))))
 
 
 # Returns a function that always returns the constant value `x`.
