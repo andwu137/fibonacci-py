@@ -144,4 +144,4 @@ fibonacci: Callable[[int], int] = lambda i: (
 )
 
 
-print([*map(fibonacci, [*range(100)])])
+print([*map(fibonacci, range(100))])
