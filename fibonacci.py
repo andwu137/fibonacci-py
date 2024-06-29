@@ -122,9 +122,15 @@ one: int = 1
 # Returns:
 #     int: The Fibonacci number at index `i`.
 fibonacci: Callable[[int], int] = lambda i: (
-    f(dot3(i.__eq__)(const(const(id))))(dot(const(const))(id))(
-        dot(dot)(dot)(const)(add)
-    )(dot3(one.__add__)(const(const(id))))(f)(zero)(one)(zero)
+    f
+    (dot3(i.__eq__)(const(const(id))))
+    (dot(const(const))(id))
+    (dot(dot)(dot)(const)(add))
+    (dot3(one.__add__)(const(const(id))))
+    (f)
+    (zero)
+    (one)
+    (zero)
 )
 
 
