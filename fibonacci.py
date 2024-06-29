@@ -1,12 +1,13 @@
-from typing import Callable, Any
+from typing import Callable, TypeVar
 
-type A = Any
-type B = Any
-type C = Any
-type D = Any
-type Predicate3 = Callable[[A], Callable[[B], Callable[[C], bool]]]
-type Merge3 = Callable[[A], Callable[[B], Callable[[C], D]]]
-type F = Callable[
+A = TypeVar('A')
+B = TypeVar('B')
+C = TypeVar('C')
+D = TypeVar('D')
+E = TypeVar('E')
+type Predicate3[A, B, C] = Callable[[A], Callable[[B], Callable[[C], bool]]]
+type Merge3[A, B, C, D] = Callable[[A], Callable[[B], Callable[[C], D]]]
+type F[A, B, C] = Callable[
     [Predicate3],
     Callable[
         [Merge3],
@@ -83,7 +84,8 @@ f: F = (
 #
 # Returns:
 #     Callable[[B], A]: A function that takes any argument and returns `x`.
-const: Callable[[A], Callable[[B], A]] = lambda x: lambda _: x
+type Const[A, B] = Callable[[A], Callable[[B], A]]
+const: Const = lambda x: lambda _: x
 
 # Returns a function that flips the order of arguments to function `f`.
 #
@@ -93,7 +95,8 @@ const: Callable[[A], Callable[[B], A]] = lambda x: lambda _: x
 # Returns:
 #     Callable[[B], A]: A function that takes the second argument first
 #                       and then the first argument.
-flip: Callable[[Callable[[A], B]], Callable[[B], A]] = lambda f: (
+type Flip[A, B] = Callable[[Callable[[A], B]], Callable[[B], A]]
+flip: Flip = lambda f: (
     lambda b: lambda a: f(a)(b)
 )
 
@@ -104,7 +107,8 @@ flip: Callable[[Callable[[A], B]], Callable[[B], A]] = lambda f: (
 #
 # Returns:
 #     A: The input that is returned
-id: Callable[[A], A] = lambda x: x
+type Id[A] = Callable[[A], A]
+id: Id = lambda x: x
 
 # Returns a function that composes two functions.
 #
@@ -114,20 +118,29 @@ id: Callable[[A], A] = lambda x: x
 # Returns:
 #     Callable[[Callable[[A], B]], Callable[[A], C]]:
 #               A function that applies `f` after `g`.
-dot: Callable[
+type Dot[A, B, C] = Callable[
         [Callable[[B], C]],
         Callable[
             [Callable[[A], B]],
             Callable[[A], C]
         ]
-    ] = (
+    ]
+dot: Dot = (
     lambda f: lambda g: lambda x: f(g(x))
 )
 
-dot3 = lambda f: lambda g: lambda x: lambda y: lambda z: f(g(x)(y)(z))
+type Dot3[A, B, C, D, E] = Callable[
+        [Callable[[D], E]],
+        Callable[
+            [Merge3[A, B, C, D]],
+            Callable[[D], E]
+        ]
+    ]
+dot3: Dot3 = lambda f: lambda g: lambda x: lambda y: lambda z: f(g(x)(y)(z))
 
 
-add: Callable[[int], Callable[[int], int]] = lambda x: lambda y: x + y
+type Add[A] = Callable[[A], Callable[[A], A]]
+add: Add = lambda x: lambda y: x + y
 zero: int = 0
 one: int = 1
 
