@@ -132,7 +132,7 @@ dot: Dot = (
 type Dot2[A, B, C, D] = Callable[
         [Callable[[C], D]],
         Callable[
-            [Callable[[A, B], C]],
+            [Callable[[A], Callable[[B], C]]],
             Callable[
                 [A],
                 Callable[
