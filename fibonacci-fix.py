@@ -129,6 +129,21 @@ dot: Dot = (
     lambda f: lambda g: lambda x: f(g(x))
 )
 
+type Dot2[A, B, C, D] = Callable[
+        [Callable[[C], D]],
+        Callable[
+            [Callable[[A, B], C]],
+            Callable[
+                [A],
+                Callable[
+                    [B],
+                    D
+                ]
+            ]
+        ]
+    ]
+dot2: Dot2 = dot(dot)(dot)
+
 type Dot3[A, B, C, D, E] = Callable[
         [Callable[[D], E]],
         Callable[
@@ -145,7 +160,7 @@ type Dot3[A, B, C, D, E] = Callable[
             ]
         ]
     ]
-dot3: Dot3 = lambda f: lambda g: lambda x: lambda y: lambda z: f(g(x)(y)(z))
+dot3: Dot3 = dot(dot(dot)(dot))(dot)
 
 
 type Add[A] = Callable[[A], Callable[[A], A]]
@@ -166,7 +181,7 @@ fibonacci: Callable[[int], int] = lambda i: (
     f
     (dot3(i.__eq__)(const(const(id))))
     (const(const))
-    (dot(dot)(dot)(const)(add))
+    (dot2(const)(add))
     (dot3(one.__add__)(const(const(id))))
     (f)
     (zero)
