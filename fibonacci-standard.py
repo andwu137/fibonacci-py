@@ -24,6 +24,6 @@ def fibonacci_match(i: int) -> int:
             return fibonacci_match(i - 1) + fibonacci_match(i - 2)
 
 
-print([*map(fibonacci_if, range(10))])
+print([fibonacci_if(x) for x in range(10)])
 print([*map(fibonacci_if_golf, range(10))])
 print([*map(fibonacci_match, range(10))])
