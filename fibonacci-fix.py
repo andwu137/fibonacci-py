@@ -156,7 +156,7 @@ one: int = 1
 fibonacci: Callable[[int], int] = lambda i: (
     f
     (dot3(i.__eq__)(const(const(id))))
-    (dot(const(const))(id))
+    (const(const))
     (dot(dot)(dot)(const)(add))
     (dot3(one.__add__)(const(const(id))))
     (f)
