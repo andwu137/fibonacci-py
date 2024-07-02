@@ -1,4 +1,4 @@
-def fibonacci(i):
+def fibonacci(i: int) -> int:
     if i == 0:
         return 0
     elif i == 1:
