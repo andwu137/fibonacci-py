@@ -5,16 +5,16 @@ B = TypeVar('B')
 C = TypeVar('C')
 D = TypeVar('D')
 E = TypeVar('E')
-type Predicate3[A, B, C] = Callable[[A], Callable[[B], Callable[[C], bool]]]
-type Merge3[A, B, C, D] = Callable[[A], Callable[[B], Callable[[C], D]]]
+type Predicate3[A, B, C] = F3T1[A, B, C, bool]
+type F3T1[A, B, C, D] = Callable[[A], Callable[[B], Callable[[C], D]]]
 type F[A, B, C] = Callable[
     [Predicate3],
     Callable[
-        [Merge3],
+        [F3T1],
         Callable[
-            [Merge3],
+            [F3T1],
             Callable[
-                [Merge3],
+                [F3T1],
                 Callable[
                     [F],
                     Callable[
@@ -132,8 +132,17 @@ dot: Dot = (
 type Dot3[A, B, C, D, E] = Callable[
         [Callable[[D], E]],
         Callable[
-            [Merge3[A, B, C, D]],
-            Callable[[D], E]
+            [F3T1[A, B, C, D]],
+            Callable[
+                [A],
+                Callable[
+                    [B],
+                    Callable[
+                        [C],
+                        E
+                    ]
+                ]
+            ]
         ]
     ]
 dot3: Dot3 = lambda f: lambda g: lambda x: lambda y: lambda z: f(g(x)(y)(z))
