@@ -13,7 +13,7 @@ def memofix_dict[A, B](f: F2T1[F1T1[A, B], A, B]) -> F1T1[A, B]:
 
     def fP(x):
         nonlocal xs
-        if len(xs) - 1 < x:
+        if x in xs:
             xs[x] = f(fP, x)
         return xs[x]
 
