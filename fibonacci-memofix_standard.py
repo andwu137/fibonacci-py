@@ -41,5 +41,5 @@ def fibonacci_fix(f: F1T1[int, int], i: int) -> int:
         return f(i - 1) + f(i - 2)
 
 
-print([*map(memofix_list(fibonacci_fix), range(100))])
-print([*map(memofix_dict(fibonacci_fix), range(100))])
+print([*map(memofix_list(fibonacci_fix), range(10))])
+print([*map(memofix_dict(fibonacci_fix), range(10))])
