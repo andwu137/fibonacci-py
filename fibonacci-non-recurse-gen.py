@@ -1,7 +1,8 @@
 from itertools import islice
+from typing import Generator
 
 
-def fibs():
+def fibs() -> Generator[int, None, None]:
     x, y = 0, 1
     while True:
         yield x
